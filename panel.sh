@@ -63,7 +63,7 @@ hc pad $monitor $panel_height
     #   date    ^fg(#efefef)18:33^fg(#909090), 2013-10-^fg(#efefef)29
 
     #mpc idleloop player &
-    conky -c ~/.config/conky/statusbar | while read -r; do
+    conky -c ~/.config/herbstluftwm/conky/statusbar | while read -r; do
         echo -e "conky $REPLY";
     done > >(uniq_linebuffered) &
     childpid=$!
