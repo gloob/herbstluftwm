@@ -28,7 +28,7 @@ hc keybind $Mod-t      spawn urxvt
 
 # basic movement
 # focusing clients
-hc keybind $Mod-urxvtLeft  focus left
+hc keybind $Mod-Left  focus left
 hc keybind $Mod-Down  focus down
 hc keybind $Mod-Up    focus up
 hc keybind $Mod-Right focus right
@@ -64,6 +64,9 @@ hc keybind $Mod-Control-Left    resize left +$resizestep
 hc keybind $Mod-Control-Down    resize down +$resizestep
 hc keybind $Mod-Control-Up      resize up +$resizestep
 hc keybind $Mod-Control-Right   resize right +$resizestep
+
+# Lock
+hc keybind $Mod-l  spawn xscreensaver-command --lock
 
 # tags
 tag_names=( {1..9} )
@@ -106,15 +109,19 @@ hc keybind $Mod-i jumpto urgent
 # theme
 hc attr theme.tiling.reset 1
 hc attr theme.floating.reset 1
-hc set frame_border_active_color '#222222'
-hc set frame_border_normal_color '#101010'
-hc set frame_bg_normal_color '#565656'
-hc set frame_bg_active_color '#345F0C'
+
+# colors
+hc set frame_border_active_color '#000000'
+hc set frame_border_normal_color '#000000'
+hc set frame_bg_normal_color '#151515'
+hc set frame_bg_active_color '#151515'
 hc set frame_border_width 1
-hc set always_show_frame 1
 hc set frame_bg_transparent 1
-hc set frame_transparent_width 5
-hc set frame_gap 4
+hc set frame_transparent_width 2
+hc set window_border_width 2
+hc set window_border_normal_color '#202020'
+hc set window_border_active_color '#ffaf5f'
+hc set always_show_frame 1
 
 hc attr theme.active.color '#9fbc00'
 hc attr theme.normal.color '#454545'
@@ -142,9 +149,15 @@ hc rule focus=on # normally focus new clients
 #hc rule focus=off # normally do not focus new clients
 # give focus to most common terminals
 #hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole)' focus=on
+hc rule class='Skype' index=11111111 #focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
-hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
+#hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
+
+hc rule class=Gimp tag=gimp index=01 pseudotile=on
+hc rule class=Gimp windowrole~'gimp-(image-window|toolbox|dock)' pseudotile=off
+hc rule class=Gimp windowrole=gimp-toolbox focus=off index=00
+hc rule class=Gimp windowrole=gimp-dock focus=off index=1
 
 # unlock, just to be sure
 hc unlock
